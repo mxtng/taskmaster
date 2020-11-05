@@ -5,6 +5,7 @@ input InputTaskData {
   title: String!
   description: String!
   price: Float!
+  category: String!
 }
 
 type User {
@@ -17,10 +18,15 @@ type Task {
   title: String!
   description: String!
   price: Float!
+  category: String!
+  createdBy: User!
 }
 
 type Query {
   tasks: [Task!]!
+  users: [User!]!
+  getUser(userId: String!): User!
+  getTask(taskId: String!): Task!
 }
 
 type Mutation {
@@ -33,3 +39,4 @@ type Mutation {
 `);
 
 export default schema;
+ 

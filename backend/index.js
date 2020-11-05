@@ -9,6 +9,7 @@ import resolvers from './graphql/resolvers';
     await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useFindAndModify: false,
     });
 
     const app = express();
@@ -28,9 +29,7 @@ import resolvers from './graphql/resolvers';
     });
 
     const port = process.env.PORT || 3010;
-    app.listen(port, () =>
-      console.log(`Server connected @ Port: ${port}`)
-    );
+    app.listen(port, () => console.log(`Server connected @ Port: ${port}`));
   } catch (err) {
     console.error(err);
     process.exit(1);
