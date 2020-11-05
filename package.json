@@ -10,7 +10,7 @@
   },
   "type": "module",
   "scripts": {
-    "start": "nodemon -r dotenv/config --experimental-specifier-resolution=node backend/index.js"
+    "dev": "NODE_ENV=development nodemon -r dotenv/config --experimental-specifier-resolution=node backend/index.js"
   },
   "author": "mxtng",
   "license": "ISC",
