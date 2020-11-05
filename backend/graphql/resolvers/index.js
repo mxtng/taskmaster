@@ -1,6 +1,38 @@
 import Task from '../../models/task';
+import User from '../../models/user';
 
 const resolvers = {
+  createUser: async ({ email, password }) => {
+    try {
+      const user = await User.findOne({ email });
+      if (user) {
+        throw new Error('Email already in use');
+      }
+      const newUser = new User({
+        email,
+        password,
+      });
+
+      await newUser.save();
+      return newUser.validatePassword(password);
+    } catch (err) {
+      throw err;
+    }
+  },
+
+  loginUser: async ({ email, password }) => {
+    try {
+      const user = await User.findOne({ email });
+      if (!user) {
+        throw new Error('Invalid credentials');
+      }
+
+      return user.validatePassword(password);
+    } catch (err) {
+      throw err;
+    }
+  },
+
   tasks: async () => {
     try {
       const tasks = await Task.find();
