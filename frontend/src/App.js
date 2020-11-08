@@ -1,4 +1,4 @@
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Navbar from './components/Navbar/Navbar';
 import HomePage from './pages/HomePage/HomePage';
@@ -12,9 +12,11 @@ const App = () => {
     <div>
       <BrowserRouter>
         <Navbar />
-        <Route exact path='/' component={HomePage} />
-        <Route exact path='/tasks' component={TasksPage} />
-        <Route exact path='/login' component={LoginPage} />
+        <Switch>
+          <Route exact path='/' component={HomePage} />
+          <Route exact path='/tasks' component={TasksPage} />
+          <Route exact path='/login' component={LoginPage} />
+        </Switch>
       </BrowserRouter>
     </div>
   );
