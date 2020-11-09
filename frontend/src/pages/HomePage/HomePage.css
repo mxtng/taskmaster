@@ -1,0 +1,60 @@
+.img {
+  background-color: honeydew;
+  height: 50vh;
+  padding: 4rem;
+}
+
+.front {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.categories {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: auto;
+  overflow: auto;
+  background-color: rgb(105, 204, 92);
+}
+
+.categories h2 {
+  color: rgb(92, 110, 116);
+}
+
+.icon {
+  border-radius: 5rem;
+  margin: 2rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.icon > * {
+  height: 2rem;
+}
+
+.icon:hover {
+  background-color: honeydew;
+}
+
+.img h2 {
+  color: rgba(100, 93, 93, 0.699);
+}
+
+.btn {
+  cursor: pointer;
+  margin: 1rem;
+  border-radius: 2rem;
+  text-decoration: none;
+  outline: none;
+  padding: 1rem;
+  background: var(--primary);
+  color: white;
+}
+
+.btn:hover {
+  background: rgb(187, 183, 183);
+}
