@@ -44,17 +44,3 @@
   color: rgba(100, 93, 93, 0.699);
 }
 
-.btn {
-  cursor: pointer;
-  margin: 1rem;
-  border-radius: 2rem;
-  text-decoration: none;
-  outline: none;
-  padding: 1rem;
-  background: var(--primary);
-  color: white;
-}
-
-.btn:hover {
-  background: rgb(187, 183, 183);
-}
