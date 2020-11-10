@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Fragment, useState } from 'react';
 import Heading from '../../components/Heading/Heading';
 import TaskItem from '../../components/TaskItem/TaskItem';
+import Modal from '../../components/Modal/Modal';
 
 import './TasksPage.css';
 
@@ -40,13 +41,26 @@ const list = [
 ];
 
 const TasksPage = () => {
+  const [showModal, setShowModal] = useState(false);
   return (
-    <div className='tasks'>
-      <Heading title='Tasks List' />
-      {list.map((item) => (
-        <TaskItem item={item} />
-      ))}
-    </div>
+    <Fragment>
+      {showModal && (
+        <Modal title='Create Title' onDismiss={() => setShowModal(false)}>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque
+          voluptas sapiente porro fuga deserunt sit architecto reprehenderit
+          illo quae cupiditate.
+        </Modal>
+      )}
+      <div className='tasks'>
+        <button className='btn' onClick={() => setShowModal(true)}>
+          Create Task
+        </button>
+        <Heading title='Tasks List' />
+        {list.map((item) => (
+          <TaskItem key={item.id} item={item} />
+        ))}
+      </div>
+    </Fragment>
   );
 };
 

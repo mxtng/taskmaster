@@ -5,8 +5,8 @@ import './TaskItem.css';
 
 const TaskItem = ({ item }) => {
   return (
-    <Card>
-      <Fragment clasName='taskitem'>
+    <Card className='taskitem'>
+      <Fragment>
         <h2 className='taskitem__title'>{item.title}</h2>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
