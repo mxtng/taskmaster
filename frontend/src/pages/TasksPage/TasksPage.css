@@ -1,0 +1,12 @@
+.tasks {
+  width: 80vw;
+  max-width: 900px;
+  margin: auto;
+  margin-top: 2rem;
+}
+
+@media (max-width: 500px) {
+  .tasks {
+    width: 100vw;
+  }
+}

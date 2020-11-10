@@ -1,0 +1,14 @@
+.taskitem__title {
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+
+.taskitem__subtitle {
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 2rem;
+  margin-bottom: 0.5rem;
+}
