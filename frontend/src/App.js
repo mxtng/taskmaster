@@ -6,8 +6,6 @@ import HomePage from './pages/HomePage/HomePage';
 import TasksPage from './pages/TasksPage/TasksPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 
-import './App.css';
-
 const App = () => {
   return (
     <div>

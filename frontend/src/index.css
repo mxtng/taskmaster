@@ -1,5 +1,6 @@
 :root {
   --primary: rgb(140, 224, 123);
+  --secondary: rgb(222, 236, 224);
 }
 
 * {
