@@ -18,6 +18,7 @@ type Task {
   title: String!
   description: String!
   price: Float!
+  bid: Int!
   category: String!
   createdBy: User!
 }

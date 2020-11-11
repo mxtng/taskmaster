@@ -25,6 +25,7 @@ const taskResolvers = {
         title,
         description,
         price,
+        bid: 0,
         category,
         createdBy: '5fa380567491ac380d90acb5',
       });
@@ -44,6 +45,7 @@ const taskResolvers = {
           title,
           description,
           price,
+          bid,
           category
         },
         { new: true }
