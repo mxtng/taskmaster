@@ -15,6 +15,7 @@ const GET_TASKS = gql`
       description
       category
       price
+      bid
     }
   }
 `;
