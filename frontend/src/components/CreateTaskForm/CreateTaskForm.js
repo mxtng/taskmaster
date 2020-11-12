@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { CREATE_TASK } from '../../apollo/mutations';
 import { GET_TASKS } from '../../apollo/queries';
+import Alert from '../../components/Alert/Alert';
 
 import './CreateTaskForm.css';
 
@@ -43,7 +44,7 @@ const CreateTaskForm = (props) => {
 
   return (
     <form onSubmit={onSubmitHandle}>
-      {!error && <p>Error: Unable to create task</p>}
+      {error && <Alert alertMsg='Error: Unable to create task' />}
       <div className='form__group'>
         <label htmlFor='title'>Title</label>
         <input
