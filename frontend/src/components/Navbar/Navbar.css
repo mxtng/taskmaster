@@ -3,7 +3,8 @@
   justify-content: space-around;
   align-items: center;
   background-color: var(--primary);
-  height: 3.5rem;
+  /* height: 3.5rem; */
+  height: 8vh;
   padding: 0 2rem;
 }
 

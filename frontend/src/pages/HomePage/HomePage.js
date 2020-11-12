@@ -19,7 +19,6 @@ const Home = () => {
         </div>
       </div>
       <div className='categories'>
-        <h2>Categories</h2>
         <div className='icon'>
           <IoIosBicycle />
         </div>

@@ -1,6 +1,6 @@
 .img {
   background-color: honeydew;
-  height: 50vh;
+  height: 80vh;
   padding: 4rem;
 }
 
@@ -17,17 +17,12 @@
   justify-content: center;
   align-items: center;
   flex: auto;
-  overflow: auto;
   background-color: rgb(105, 204, 92);
-}
-
-.categories h2 {
-  color: rgb(92, 110, 116);
+  height: 12vh;
 }
 
 .icon {
   border-radius: 5rem;
-  margin: 2rem;
   padding: 1rem;
   cursor: pointer;
 }
@@ -43,4 +38,3 @@
 .img h2 {
   color: rgba(100, 93, 93, 0.699);
 }
-
