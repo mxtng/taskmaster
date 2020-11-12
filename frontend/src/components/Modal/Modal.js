@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Heading from '../Heading/Heading';
-import Spinner from '../Spinner/Spinner';
+import Loader from '../Loader/Loader';
 
 import './Modal.css';
 
 const Modal = (props) => {
   return ReactDOM.createPortal(
     <div className='modal'>
-      {!!props.spinner && <Spinner />}
+      {!!props.loader && <Loader />}
       {(!!props.children || !!props.title || !!props.actions) && (
         <div className='modal__content'>
           {!!props.onDismiss && (

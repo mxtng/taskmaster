@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client';
 import Heading from '../../components/Heading/Heading';
 import TaskItem from '../../components/TaskItem/TaskItem';
 import Modal from '../../components/Modal/Modal';
-import Spinner from '../../components/Spinner/Spinner';
+import Loader from '../../components/Loader/Loader';
 import CreateTaskForm from '../../components/CreateTaskForm/CreateTaskForm';
 import Alert from '../../components/Alert/Alert';
 import { GET_TASKS } from '../../apollo/queries';
@@ -27,7 +27,7 @@ const TasksPage = () => {
         </button>
         <Heading title='Task List' />
         {loading ? (
-          <Spinner />
+          <Loader />
         ) : !error && data ? (
           data.tasks.map((task) => <TaskItem key={task.id} task={task} />)
         ) : (
