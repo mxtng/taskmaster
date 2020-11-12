@@ -1,0 +1,17 @@
+form {
+  width: 50%;
+}
+
+.form__group > *,
+form .form__btn {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0.5rem 0;
+  outline: none;
+}
+
+.form__control,
+form .form__btn {
+  padding: 0.5rem;
+}

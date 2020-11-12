@@ -1,24 +1,13 @@
 import React, { Fragment, useState } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import Heading from '../../components/Heading/Heading';
 import TaskItem from '../../components/TaskItem/TaskItem';
 import Modal from '../../components/Modal/Modal';
 import Spinner from '../../components/Spinner/Spinner';
+import CreateTaskForm from '../../components/CreateTaskForm/CreateTaskForm';
+import { GET_TASKS } from '../../apollo/queries';
 
 import './TasksPage.css';
-
-const GET_TASKS = gql`
-  query {
-    tasks {
-      id
-      title
-      description
-      category
-      price
-      bid
-    }
-  }
-`;
 
 const TasksPage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -27,14 +16,12 @@ const TasksPage = () => {
   return (
     <Fragment>
       {showModal && (
-        <Modal title='Create Title' onDismiss={() => setShowModal(false)}>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cumque
-          voluptas sapiente porro fuga deserunt sit architecto reprehenderit
-          illo quae cupiditate.
+        <Modal title='Create Task' onDismiss={() => setShowModal(false)}>
+          <CreateTaskForm />
         </Modal>
       )}
       <div className='tasks'>
-        <button className='btn' onClick={() => setShowModal(true)}>
+        <button className='btn' onClick={setShowModal.bind(null, true)}>
           Create Task
         </button>
         <Heading title='Task List' />
