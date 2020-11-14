@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../../apollo/mutations';
-import { saveToken } from '../../services/auth';
+import { saveToken } from '../../utils/localStorage';
 import Heading from '../../components/Heading/Heading';
 
 import './LoginPage.css';

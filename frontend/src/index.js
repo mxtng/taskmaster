@@ -1,13 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import {
+  ApolloProvider,
+  ApolloClient,
+  HttpLink,
+  ApolloLink,
+  InMemoryCache,
+  concat,
+} from '@apollo/client';
+import { getToken } from './utils/localStorage';
 import App from './App';
 
 import './index.css';
 
+const httpLink = new HttpLink({ uri: 'http://localhost:3010/graphql' });
+
+const authMiddleware = new ApolloLink((operation, forward) => {
+  operation.setContext({
+    headers: {
+      authorization: getToken() || null,
+    },
+  });
+
+  return forward(operation);
+});
+
 const client = new ApolloClient({
-  uri: 'http://localhost:3010/graphql',
   cache: new InMemoryCache(),
+  link: concat(authMiddleware, httpLink),
 });
 
 ReactDOM.render(
