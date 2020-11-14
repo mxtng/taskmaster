@@ -30,3 +30,9 @@ export const LOGIN_USER = gql`
     loginUser(email: $email, password: $password)
   }
 `;
+
+export const CREATE_USER = gql`
+  mutation createUser($email: String!, $password: String!) {
+    createUser(email: $email, password: $password)
+  }
+`;

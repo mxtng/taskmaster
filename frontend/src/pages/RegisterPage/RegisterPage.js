@@ -1,26 +1,29 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
-import { LOGIN_USER } from '../../apollo/mutations';
+import { CREATE_USER } from '../../apollo/mutations';
 import { saveToken } from '../../utils/localStorage';
 import Heading from '../../components/Heading/Heading';
 
-import './LoginPage.css';
+import './RegisterPage.css';
 
 const LoginPage = () => {
   const history = useHistory();
-  const [loginCredentials, setLoginCredentials] = useState({
+  const [registerCredentials, setRegisterCredentials] = useState({
     email: '',
     password: '',
   });
 
-  const [userLogin, { error }] = useMutation(LOGIN_USER);
+  const [userCreate, { error }] = useMutation(CREATE_USER);
 
   const onChangeHandle = (e) => {
-    setLoginCredentials({ ...loginCredentials, [e.target.id]: e.target.value });
+    setRegisterCredentials({
+      ...registerCredentials,
+      [e.target.id]: e.target.value,
+    });
   };
 
-  const { email, password } = loginCredentials;
+  const { email, password } = registerCredentials;
 
   const onSubmitHandle = async (e) => {
     e.preventDefault();
@@ -30,55 +33,55 @@ const LoginPage = () => {
       return;
     }
 
-    const { data } = await userLogin({ variables: loginCredentials });
+    const { data } = await userCreate({ variables: registerCredentials });
 
     if (error) {
-      throw new Error('User login failed');
+      throw new Error('User registration failed');
     }
 
-    if (data && data.loginUser) {
-      const token = data.loginUser;
+    if (data && data.createUser) {
+      const token = data.createUser;
       saveToken(token);
       history.push('/');
     }
   };
 
   return (
-    <div className='login'>
-      <form className='login__form' onSubmit={onSubmitHandle}>
-        <Heading title='Sign in' />
-        <div className='login__group'>
-          <label className='login__label' htmlFor='email'>
+    <div className='register'>
+      <form className='register__form' onSubmit={onSubmitHandle}>
+        <Heading title='Register' />
+        <div className='register__group'>
+          <label className='register__label' htmlFor='email'>
             Email
           </label>
           <input
-            className='login__input'
+            className='register__input'
             type='text'
             id='email'
             value={email}
             onChange={onChangeHandle}
           />
         </div>
-        <div className='login__group'>
-          <label className='login__label' htmlFor='password'>
+        <div className='register__group'>
+          <label className='register__label' htmlFor='password'>
             Password
           </label>
           <input
-            className='login__input'
+            className='register__input'
             type='password'
             id='password'
             value={password}
             onChange={onChangeHandle}
           />
         </div>
-        <div className='login__group'>
+        <div className='register__group'>
           <button className='btn' type='submit'>
-            Login
+            Sign Up
           </button>
         </div>
       </form>
-      <p className='login__subtitle'>
-        Don't have an account? <Link to='/register'>Sign up</Link>
+      <p className='register__subtitle'>
+        Already have an account? <Link to='/login'>Sign in</Link>
       </p>
     </div>
   );
