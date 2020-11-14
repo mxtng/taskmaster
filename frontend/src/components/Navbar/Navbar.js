@@ -1,9 +1,27 @@
 import React from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useHistory } from 'react-router-dom';
+import { useApolloClient, gql, useQuery } from '@apollo/client';
+import { removeToken } from '../../utils/localStorage';
 
 import './Navbar.css';
 
 const Navbar = () => {
+  const history = useHistory();
+  const client = useApolloClient();
+  const { data } = useQuery(gql`
+    query currentUser {
+      currentUser @client {
+        token
+      }
+    }
+  `);
+
+  const onLogoutHandle = () => {
+    history.push('/');
+    removeToken();
+    client.resetStore();
+  };
+
   return (
     <header className='nav'>
       <input type='checkbox' id='nav__checkbox' />
@@ -18,13 +36,16 @@ const Navbar = () => {
 
         <NavLink to='/tasks'>Tasks</NavLink>
 
-        <NavLink to='/login'>Sign In</NavLink>
+        {data ? (
+          <div className='nav__btn' onClick={() => onLogoutHandle()}>
+            Logout
+          </div>
+        ) : (
+          <NavLink to='/login'>Sign In</NavLink>
+        )}
       </nav>
 
       <label className='nav__btn' htmlFor='nav__checkbox'>
-        {/* <span></span>
-        <span></span>
-        <span></span> */}
         <div></div>
       </label>
     </header>

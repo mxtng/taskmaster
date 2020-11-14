@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
+import { useMutation, gql } from '@apollo/client';
 import { CREATE_USER } from '../../apollo/mutations';
 import { saveToken } from '../../utils/localStorage';
 import Heading from '../../components/Heading/Heading';
@@ -14,7 +14,7 @@ const LoginPage = () => {
     password: '',
   });
 
-  const [userCreate, { error }] = useMutation(CREATE_USER);
+  const [userCreate, { error, client }] = useMutation(CREATE_USER);
 
   const onChangeHandle = (e) => {
     setRegisterCredentials({
@@ -41,8 +41,26 @@ const LoginPage = () => {
 
     if (data && data.createUser) {
       const token = data.createUser;
+
       saveToken(token);
+
       history.push('/');
+
+      client.writeQuery({
+        query: gql`
+          query currentUser {
+            currentUser {
+              token
+            }
+          }
+        `,
+        data: {
+          currentUser: {
+            token,
+            __typename: 'currentUser',
+          },
+        },
+      });
     }
   };
 

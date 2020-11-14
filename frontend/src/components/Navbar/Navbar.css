@@ -31,8 +31,11 @@
   text-transform: uppercase;
 }
 
-.nav__links > a {
+.nav__links > a,
+.nav__btn {
   text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
   margin: 2px;
   color: gray;
   padding: 0.25rem;
@@ -42,12 +45,9 @@
 
 .nav__links a:hover,
 .nav__links a:active,
-.nav__links a.active {
+.nav__links a.active,
+.nav__btn:hover {
   color: rgb(250, 250, 250);
-}
-
-.nav__btn {
-  display: none;
 }
 
 @media (max-width: 768px) {
