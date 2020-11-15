@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { NavLink, Link, useHistory } from 'react-router-dom';
 import { useApolloClient, gql, useQuery } from '@apollo/client';
 import { removeToken } from '../../utils/localStorage';
@@ -30,16 +30,15 @@ const Navbar = () => {
         <Link to='/'>Taskmaster</Link>
       </h1>
       <nav className='nav__links'>
-        <NavLink exact to='/'>
-          Categories
-        </NavLink>
-
         <NavLink to='/tasks'>Tasks</NavLink>
 
         {data ? (
-          <div className='nav__btn' onClick={() => onLogoutHandle()}>
-            Logout
-          </div>
+          <Fragment>
+            <NavLink to='/dashboard'>Dashboard</NavLink>
+            <div className='nav__btn' onClick={() => onLogoutHandle()}>
+              Logout
+            </div>
+          </Fragment>
         ) : (
           <NavLink to='/login'>Sign In</NavLink>
         )}
