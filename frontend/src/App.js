@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage/HomePage';
 import TasksPage from './pages/TasksPage/TasksPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
+import DashboardPage from './pages/DashboardPage/DashboardPage';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Route exact path='/tasks' component={TasksPage} />
           <Route exact path='/login' component={LoginPage} />
           <Route exact path='/register' component={RegisterPage} />
+          <Route exact path='/dashboard' component={DashboardPage} />
         </Switch>
         {/* <Footer /> */}
       </BrowserRouter>

@@ -1,0 +1,16 @@
+.dashboard {
+  width: 80vw;
+  margin: 0 calc((100% - 80vw) / 2);
+}
+
+.dashboard .dashboard__main .card {
+  background: var(--primary);
+  opacity: 0.8;
+  border-radius: 4px;
+  padding: 3rem;
+}
+
+.dashboard .dashboard__main .card .btn {
+  display: block;
+  background-color: rgb(70, 199, 231);
+}
