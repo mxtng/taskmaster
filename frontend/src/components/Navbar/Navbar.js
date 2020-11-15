@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { NavLink, Link, useHistory } from 'react-router-dom';
 import { useApolloClient, gql, useQuery } from '@apollo/client';
-import { removeToken } from '../../utils/localStorage';
+import { removeUserAuth } from '../../utils/localStorage';
 
 import './Navbar.css';
 
@@ -18,7 +18,7 @@ const Navbar = () => {
 
   const onLogoutHandle = () => {
     history.push('/');
-    removeToken();
+    removeUserAuth();
     client.resetStore();
   };
 

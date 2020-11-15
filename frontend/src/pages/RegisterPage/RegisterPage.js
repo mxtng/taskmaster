@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { useMutation, gql } from '@apollo/client';
 import { CREATE_USER } from '../../apollo/mutations';
-import { saveToken } from '../../utils/localStorage';
+import { saveUserAuth } from '../../utils/localStorage';
 import Heading from '../../components/Heading/Heading';
 
 import './RegisterPage.css';
@@ -40,9 +40,10 @@ const LoginPage = () => {
     }
 
     if (data && data.createUser) {
-      const token = data.createUser;
+      const userAuth = data.createUser;
 
-      saveToken(token);
+      // save user auth (token & userId) to local storage
+      saveUserAuth(userAuth);
 
       history.push('/');
 
@@ -51,12 +52,14 @@ const LoginPage = () => {
           query currentUser {
             currentUser {
               token
+              userId
             }
           }
         `,
         data: {
           currentUser: {
-            token,
+            token: userAuth.token,
+            userId: userAuth.userId,
             __typename: 'currentUser',
           },
         },

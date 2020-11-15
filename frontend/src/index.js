@@ -8,7 +8,7 @@ import {
   InMemoryCache,
   concat,
 } from '@apollo/client';
-import { getToken } from './utils/localStorage';
+import { getUserAuth } from './utils/localStorage';
 import App from './App';
 
 import './index.css';
@@ -18,7 +18,7 @@ const httpLink = new HttpLink({ uri: 'http://localhost:3010/graphql' });
 const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext({
     headers: {
-      authorization: getToken() || null,
+      Authorization: `Bearer ${getUserAuth() && getUserAuth().token}` || null,
     },
   });
 

@@ -1,13 +1,13 @@
-const AUTH_TOKEN = 'AUTH_TOKEN';
+const USER_AUTH = 'USER_AUTH';
 
-export const saveToken = (token) => {
-  localStorage.setItem(AUTH_TOKEN, JSON.stringify(token));
+export const saveUserAuth = (userAuthData) => {
+  localStorage.setItem(USER_AUTH, JSON.stringify(userAuthData));
 };
 
-export const getToken = () => {
-  return JSON.parse(localStorage.getItem(AUTH_TOKEN));
+export const getUserAuth = () => {
+  return JSON.parse(localStorage.getItem(USER_AUTH));
 };
 
-export const removeToken = () => {
-  localStorage.removeItem(AUTH_TOKEN);
+export const removeUserAuth = () => {
+  localStorage.removeItem(USER_AUTH);
 };
