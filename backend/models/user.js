@@ -44,7 +44,7 @@ userSchema.method('validatePassword', async function (userEnteredPassword) {
     if (!token) {
       return new Error('Authentication failed');
     }
-    return token;
+    return { token, userId: this.id };
   } catch (err) {
     return new Error('Authentication failed');
   }

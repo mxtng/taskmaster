@@ -13,6 +13,11 @@ type User {
   email: String!
 }
 
+type UserAuth {
+  token: String!
+  userId: ID!
+}
+
 type Task {
   id: ID!
   title: String!
@@ -31,8 +36,8 @@ type Query {
 }
 
 type Mutation {
-  createUser(email: String!, password: String!): String!
-  loginUser(email: String!, password: String!): String!
+  createUser(email: String!, password: String!): UserAuth!
+  loginUser(email: String!, password: String!): UserAuth!
   createTask(inputTask: InputTaskData): Task!
   editTask(taskId: String!,inputTask: InputTaskData): Task!
   deleteTask(taskId: String!): Task!
