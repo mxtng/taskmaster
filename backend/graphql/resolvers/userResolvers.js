@@ -1,5 +1,6 @@
 import User from '../../models/user';
 import Task from '../../models/task';
+import bcrypt from 'bcryptjs';
 
 const user = (userId) => {
   return User.findById(userId)
@@ -56,15 +57,25 @@ const userResolvers = {
   createUser: async ({ email, password }) => {
     try {
       const user = await User.findOne({ email });
+
       if (user) {
         throw new Error('Email already in use');
       }
+
+      const hashedPassword = await new Promise((resolve, reject) => {
+        bcrypt.hash(password, 10, (err, hash) => {
+          if (err) reject(new Error('Unable to create user'));
+          resolve(hash);
+        });
+      });
+
       const newUser = new User({
         email,
-        password,
+        password: hashedPassword,
       });
 
       await newUser.save();
+
       return newUser.validatePassword(password);
     } catch (err) {
       throw err;
@@ -74,6 +85,7 @@ const userResolvers = {
   loginUser: async ({ email, password }) => {
     try {
       const user = await User.findOne({ email });
+
       if (!user) {
         throw new Error('Invalid credentials');
       }

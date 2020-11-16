@@ -12,24 +12,6 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-userSchema.pre('save', function (next) {
-  const user = this;
-  bcrypt.genSalt(10, function (err, salt) {
-    if (err) {
-      const error = new Error('Unable to create user');
-      return next(error);
-    }
-    bcrypt.hash(user.password, salt, function (err, hash) {
-      if (err) {
-        const error = new Error('Unable to create user');
-        return next(error);
-      }
-      user.password = hash;
-      next();
-    });
-  });
-});
-
 userSchema.method('validatePassword', async function (userEnteredPassword) {
   try {
     const isMatch = await bcrypt.compare(userEnteredPassword, this.password);
@@ -41,7 +23,6 @@ userSchema.method('validatePassword', async function (userEnteredPassword) {
       { userId: this.id },
       process.env.JWT_SECRET_KEY
     );
-    console.log(this.id);
 
     if (!token) {
       return new Error('Authentication failed');

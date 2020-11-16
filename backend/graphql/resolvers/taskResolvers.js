@@ -39,9 +39,6 @@ const taskResolvers = {
   },
 
   createTask: async (args, req) => {
-    console.log(req.userId);
-    console.log(req.isAuth);
-
     try {
       const { title, description, price, category } = args.inputTask;
       const newTask = new Task({
@@ -52,22 +49,24 @@ const taskResolvers = {
         category,
         createdBy: req.userId,
       });
+      let createdTask;
+      const result = await newTask.save();
+
+      createdTask = {
+        ...result._doc,
+        id: result.id,
+        createdBy: user.bind(this, result._doc.createdBy),
+      };
 
       const existingUser = await User.findById(req.userId);
       if (!existingUser) {
         throw new Error('Email not found');
       }
 
-      const createdTask = await newTask.save();
-
-      existingUser.tasks.push(createdTask.id);
+      existingUser.tasks.push(newTask);
       await existingUser.save();
 
-      return {
-        ...createdTask._doc,
-        id: createdTask.id,
-        createdBy: user.bind(this, createdTask._doc.createdBy),
-      };
+      return createdTask;
     } catch (err) {
       throw err;
     }
