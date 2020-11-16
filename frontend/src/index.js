@@ -15,10 +15,12 @@ import './index.css';
 
 const httpLink = new HttpLink({ uri: 'http://localhost:3010/graphql' });
 
+const token = getUserAuth() && getUserAuth().token;
+
 const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext({
     headers: {
-      Authorization: `Bearer ${getUserAuth() && getUserAuth().token}` || null,
+      Authorization: token ? `Bearer ${token}` : null,
     },
   });
 
