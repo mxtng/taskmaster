@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Heading from '../../components/Heading/Heading';
 import TaskList from '../../components/TaskList/TaskList';
 

@@ -12,3 +12,17 @@ export const GET_TASKS = gql`
     }
   }
 `;
+
+export const GET_USER_TASKS = gql`
+  query getUser($userId: String!) {
+    getUser(userId: $userId) {
+      tasks {
+        id
+        title
+        description
+        price
+        category
+      }
+    }
+  }
+`;

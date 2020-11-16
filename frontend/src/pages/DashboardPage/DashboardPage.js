@@ -1,5 +1,5 @@
-import React, { Fragment, useState } from 'react';
-import { gql, useQuery } from '@apollo/client';
+import React, { Fragment, useState, useEffect } from 'react';
+import { gql, useLazyQuery } from '@apollo/client';
 import Card from '../../components/Card/Card';
 import Heading from '../../components/Heading/Heading';
 import TaskList from '../../components/TaskList/TaskList';
@@ -9,16 +9,25 @@ import CreateTaskForm from '../../components/CreateTaskForm/CreateTaskForm';
 import './DashboardPage.css';
 
 const DashboardPage = () => {
+  const [isMounted, setIsMounted] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
-  const { data } = useQuery(gql`
-    query currentUser {
+  const [getCurrentUser, { data }] = useLazyQuery(gql`
+    query {
       currentUser @client {
-        token
         userId
       }
     }
   `);
+
+  useEffect(() => {
+    if (isMounted) {
+      getCurrentUser();
+    }
+    return () => {
+      setIsMounted(false);
+    };
+  }, [isMounted, getCurrentUser]);
 
   return (
     <Fragment>
@@ -37,7 +46,7 @@ const DashboardPage = () => {
           </Card>
         </div>
         <Heading title='My Task' />
-        <TaskList />
+        <TaskList userId={data && data.currentUser.userId} />
       </div>
     </Fragment>
   );
