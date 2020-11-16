@@ -7,6 +7,7 @@ const userSchema = new Schema(
   {
     email: { type: String, required: true },
     password: { type: String, required: true },
+    tasks: [{ type: mongoose.ObjectId, ref: 'Task' }],
   },
   { timestamps: true }
 );

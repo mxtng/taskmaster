@@ -1,4 +1,35 @@
 import User from '../../models/user';
+import Task from '../../models/task';
+
+const user = (userId) => {
+  return User.findById(userId)
+    .then((user) => {
+      return {
+        ...user._doc,
+        id: user.id,
+        tasks: task.bind(null, user._doc.tasks),
+      };
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
+const task = (taskIds) => {
+  return Task.find({ _id: { $in: taskIds } })
+    .then((tasks) => {
+      return tasks.map((task) => {
+        return {
+          ...task._doc,
+          id: task.id,
+          createdBy: user.bind(null, task._doc.createdBy),
+        };
+      });
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
 
 const userResolvers = {
   users: async () => {
@@ -11,7 +42,12 @@ const userResolvers = {
 
   getUser: async ({ userId }) => {
     try {
-      return User.findById(userId);
+      const existingUser = await User.findById(userId);
+      return {
+        ...existingUser._doc,
+        id: existingUser.id,
+        tasks: task.bind(null, existingUser._doc.tasks),
+      };
     } catch (err) {
       throw err;
     }

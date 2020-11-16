@@ -11,6 +11,7 @@ input InputTaskData {
 type User {
   id: ID!
   email: String!
+  tasks: [Task!]
 }
 
 type UserAuth {
@@ -45,4 +46,3 @@ type Mutation {
 `);
 
 export default schema;
- 

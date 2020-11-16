@@ -1,10 +1,25 @@
 import Task from '../../models/task';
+import User from '../../models/user';
+
+const user = async (userId) => {
+  try {
+    return User.findById(userId);
+  } catch (err) {
+    throw err;
+  }
+};
 
 const taskResolvers = {
   tasks: async () => {
     try {
-      const tasks = await Task.find().populate('createdBy');
-      return tasks;
+      const tasks = await Task.find();
+      return tasks.map((task) => {
+        return {
+          ...task._doc,
+          id: task.id,
+          createdBy: user.bind(null, task._doc.createdBy),
+        };
+      });
     } catch (err) {
       throw err;
     }
@@ -12,7 +27,13 @@ const taskResolvers = {
 
   getTask: async ({ taskId }) => {
     try {
-      return Task.findById(taskId).populate('createdBy');
+      const existingTask = await Task.findById(taskId);
+      return {
+        ...existingTask._doc,
+        id: existingTask.id,
+        createdBy: user.bind(null, existingTask._doc.createdBy),
+      };
+      return;
     } catch (err) {
       throw err;
     }
@@ -21,16 +42,30 @@ const taskResolvers = {
   createTask: async (args) => {
     try {
       const { title, description, price, category } = args.inputTask;
-      const task = new Task({
+      const tempUserId = '5fb123c110719f6b552cbde2';
+      const newTask = new Task({
         title,
         description,
         price,
         bid: 0,
         category,
-        createdBy: '5fa380567491ac380d90acb5',
+        createdBy: tempUserId,
       });
-      await task.save();
-      return Task.populate(task, 'createdBy');
+
+      const existingUser = await User.findById(tempUserId);
+      if (!existingUser) {
+        throw new Error('Email not found');
+      }
+
+      const createdTask = await newTask.save();
+
+      existingUser.tasks.push(createdTask.id);
+      await existingUser.save();
+
+      return {
+        ...createdTask._doc,
+        createdBy: user.bind(this, createdTask._doc.createdBy),
+      };
     } catch (err) {
       throw err;
     }
@@ -46,7 +81,7 @@ const taskResolvers = {
           description,
           price,
           bid,
-          category
+          category,
         },
         { new: true }
       );
