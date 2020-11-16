@@ -41,6 +41,7 @@ userSchema.method('validatePassword', async function (userEnteredPassword) {
       { userId: this.id },
       process.env.JWT_SECRET_KEY
     );
+    console.log(this.id);
 
     if (!token) {
       return new Error('Authentication failed');

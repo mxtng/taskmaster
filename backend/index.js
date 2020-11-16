@@ -10,6 +10,7 @@ import mongoose from 'mongoose';
 import { graphqlHTTP } from 'express-graphql';
 import schema from './graphql/schemas';
 import resolvers from './graphql/resolvers';
+import authorization from './middleware/authorization';
 
 (async () => {
   try {
@@ -21,6 +22,8 @@ import resolvers from './graphql/resolvers';
 
     const app = express();
     app.use(express.json());
+
+    app.use(authorization);
 
     if (process.env.NODE_ENV === 'development') {
       app.use((req, res, next) => {

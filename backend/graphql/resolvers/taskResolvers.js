@@ -33,26 +33,27 @@ const taskResolvers = {
         id: existingTask.id,
         createdBy: user.bind(null, existingTask._doc.createdBy),
       };
-      return;
     } catch (err) {
       throw err;
     }
   },
 
-  createTask: async (args) => {
+  createTask: async (args, req) => {
+    console.log(req.userId);
+    console.log(req.isAuth);
+
     try {
       const { title, description, price, category } = args.inputTask;
-      const tempUserId = '5fb123c110719f6b552cbde2';
       const newTask = new Task({
         title,
         description,
         price,
         bid: 0,
         category,
-        createdBy: tempUserId,
+        createdBy: req.userId,
       });
 
-      const existingUser = await User.findById(tempUserId);
+      const existingUser = await User.findById(req.userId);
       if (!existingUser) {
         throw new Error('Email not found');
       }
@@ -64,6 +65,7 @@ const taskResolvers = {
 
       return {
         ...createdTask._doc,
+        id: createdTask.id,
         createdBy: user.bind(this, createdTask._doc.createdBy),
       };
     } catch (err) {
