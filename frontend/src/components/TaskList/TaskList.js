@@ -45,11 +45,11 @@ const TaskList = ({ userId }) => {
   }
 
   if (userId) {
-    return data_userTasks && data_userTasks.tasks
-      ? data_userTasks.tasks.map((task) => (
+    return data_userTasks && data_userTasks.getUser.tasks
+      ? data_userTasks.getUser.tasks.map((task) => (
           <TaskItem key={task.id} task={task} />
         ))
-      : 'No Task Found';
+      : 'No User Task Found';
   }
   return data_tasks && data_tasks.tasks
     ? data_tasks.tasks.map((task) => <TaskItem key={task.id} task={task} />)

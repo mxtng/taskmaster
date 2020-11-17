@@ -33,7 +33,7 @@ const DashboardPage = () => {
     <Fragment>
       {showModal && (
         <Modal title='Create Task' onDismiss={() => setShowModal(false)}>
-          <CreateTaskForm />
+          <CreateTaskForm userId={data && data.currentUser.userId} />
         </Modal>
       )}
       <div className='dashboard'>

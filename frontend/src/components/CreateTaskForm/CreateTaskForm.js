@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { CREATE_TASK } from '../../apollo/mutations';
-import { GET_TASKS } from '../../apollo/queries';
+import { GET_TASKS, GET_USER_TASKS } from '../../apollo/queries';
 import Alert from '../../components/Alert/Alert';
 
 import './CreateTaskForm.css';
 
-const CreateTaskForm = (props) => {
+const CreateTaskForm = ({ userId }) => {
   const [createTask, { error }] = useMutation(CREATE_TASK);
   const [formData, setFormData] = useState({
     title: '',
@@ -36,7 +36,7 @@ const CreateTaskForm = (props) => {
 
     createTask({
       variables: { title, description, price: parseFloat(budget), category },
-      refetchQueries: [{ query: GET_TASKS }],
+      refetchQueries: [{ query: GET_USER_TASKS, variables: { userId } }],
     });
 
     setFormData({ title: '', description: '', budget: '', category: '' });
