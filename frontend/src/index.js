@@ -8,10 +8,13 @@ import {
   InMemoryCache,
   concat,
 } from '@apollo/client';
+import { persistCache } from 'apollo3-cache-persist';
 import { getUserAuth } from './utils/localStorage';
 import App from './App';
 
 import './index.css';
+
+const cache = new InMemoryCache();
 
 const httpLink = new HttpLink({ uri: 'http://localhost:3010/graphql' });
 
@@ -28,9 +31,20 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 });
 
 const client = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache,
   link: concat(authMiddleware, httpLink),
 });
+
+(async () => {
+  try {
+    await persistCache({
+      cache,
+      storage: window.localStorage,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+})();
 
 ReactDOM.render(
   <React.StrictMode>
