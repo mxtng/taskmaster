@@ -44,7 +44,7 @@ const Navbar = () => {
         )}
       </nav>
 
-      <label className='nav__btn' htmlFor='nav__checkbox'>
+      <label className='nav__checkbox' htmlFor='nav__checkbox'>
         <div></div>
       </label>
     </header>
