@@ -7,7 +7,7 @@ import './TasksPage.css';
 const TasksPage = () => {
   return (
     <div className='tasks'>
-      <Heading title='Task List' />
+      <Heading title='Listings' />
       <TaskList />
     </div>
   );
