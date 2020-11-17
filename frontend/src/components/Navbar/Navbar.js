@@ -30,7 +30,7 @@ const Navbar = () => {
         <Link to='/'>Taskmaster</Link>
       </h1>
       <nav className='nav__links'>
-        <NavLink to='/tasks'>Tasks</NavLink>
+        <NavLink to='/tasks'>Listings</NavLink>
 
         {data ? (
           <Fragment>
