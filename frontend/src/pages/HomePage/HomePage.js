@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   IoIosBicycle,
   IoIosBody,
@@ -14,8 +15,14 @@ const Home = () => {
     <div>
       <div className='img'>
         <div className='front'>
-          <h2>Not sure where to look for help?</h2>
-          <div className='btn'>Start here or enlist your expertise!</div>
+          <h1>
+            A Freelance Marketplace <span>for Freelancers</span>
+          </h1>
+          {/* <div className='btn'> */}
+          <Link className='btn' to='/tasks'>
+            Browse Listings
+          </Link>
+          {/* </div> */}
         </div>
       </div>
       <div className='categories'>
